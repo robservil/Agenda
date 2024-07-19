@@ -1,6 +1,6 @@
 import { Model } from 'sequelize'
 
-const loadEventModel = (sequelize, DataTypes) => {
+const loadModel = (sequelize, DataTypes) => {
   class Event extends Model {
     /**
      * Helper method for defining associations.
@@ -11,6 +11,7 @@ const loadEventModel = (sequelize, DataTypes) => {
       // define association here
       Event.belongsToMany(models.User, { through: models.UserEvent, foreignKey: 'eventId' })
       Event.belongsTo(models.User, { as: 'creator', foreignKey: 'createdBy' })
+      Event.belongsToMany(models.Category, { through: models.EventCategory, foreignKey: 'eventId' })
     }
   }
   Event.init({
@@ -60,4 +61,4 @@ const loadEventModel = (sequelize, DataTypes) => {
   return Event
 }
 
-export default loadEventModel
+export default loadModel

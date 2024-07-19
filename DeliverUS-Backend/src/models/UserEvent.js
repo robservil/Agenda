@@ -1,6 +1,6 @@
 import { Model } from 'sequelize'
 
-const loadUserEventsModel = (sequelize, DataTypes) => {
+const loadModel = (sequelize, DataTypes) => {
   class UserEvent extends Model {
     /**
      * Helper method for defining associations.
@@ -71,4 +71,4 @@ const loadUserEventsModel = (sequelize, DataTypes) => {
   return UserEvent
 }
 
-export default loadUserEventsModel
+export default loadModel
