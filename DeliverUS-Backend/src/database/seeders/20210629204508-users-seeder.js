@@ -18,7 +18,10 @@ module.exports = {
     await queryInterface.bulkInsert('Users',
       [
         { firstName: 'Customer 1', lastName: 'Fake 1', email: 'customer1@customer.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41010', userType: 'customer', avatar: process.env.AVATARS_FOLDER + '/maleAvatar.png' },
-        { firstName: 'Restaurant Owner 1', lastName: 'Fake 1', email: 'owner1@owner.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41001', userType: 'owner', avatar: process.env.AVATARS_FOLDER + '/femaleAvatar.png' }
+        { firstName: 'Restaurant Owner 1', lastName: 'Fake 1', email: 'owner1@owner.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41001', userType: 'owner', avatar: process.env.AVATARS_FOLDER + '/femaleAvatar.png' },
+        { firstName: 'Usuario 1', lastName: 'Fake 1', email: 'usuario1@usuario.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41001', userType: 'usuario', avatar: process.env.AVATARS_FOLDER + '/maleAvatar.png' },
+        { firstName: 'Inspector', lastName: 'Fake 1', email: 'inspector@inspector.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41001', userType: 'inspector', avatar: process.env.AVATARS_FOLDER + '/maleAvatar.png' },
+        { firstName: 'Usuario 2', lastName: 'Fake 1', email: 'usuario2@usuario.com', password: bcrypt.hashSync('secret', salt), phone: '+3466677888', address: 'Fake street 123', postalCode: '41001', userType: 'usuario', avatar: process.env.AVATARS_FOLDER + '/femaleAvatar.png' }
       ], {})
   },
 

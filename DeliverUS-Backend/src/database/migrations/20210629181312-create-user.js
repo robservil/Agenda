@@ -52,7 +52,9 @@ module.exports = {
         type: Sequelize.ENUM,
         values: [
           'customer',
-          'owner'
+          'owner',
+          'usuario',
+          'inspector'
         ],
         defaultValue: 'customer'
       },

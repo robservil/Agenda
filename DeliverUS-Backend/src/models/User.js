@@ -10,8 +10,10 @@ const loadModel = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      User.hasMany(models.Restaurant, { foreignKey: 'userId' })
-      User.hasMany(models.Order, { foreignKey: 'userId' })
+      User.hasMany(models.Restaurant, { foreignKey: 'userId' }) // Borrar
+      User.hasMany(models.Order, { foreignKey: 'userId' }) // Borrar
+      User.hasMany(models.Event, { as: 'createdEvents', foreignKey: 'createdBy' })
+      User.belongsToMany(models.Event, { through: models.UserEvent, foreignKey: 'userId' })
     }
   }
   User.init({
@@ -66,7 +68,9 @@ const loadModel = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: [
         'customer',
-        'owner'
+        'owner',
+        'usuario',
+        'inspector'
       ]
     },
     createdAt: {
@@ -87,7 +91,8 @@ const loadModel = (sequelize, DataTypes) => {
       }
     ],
     sequelize,
-    modelName: 'User'
+    modelName: 'User',
+    tableName: 'Users'
   })
   return User
 }
