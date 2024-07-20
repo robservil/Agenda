@@ -1,8 +1,7 @@
 'use strict'
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('EventCategories', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('EventAttributeValues', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -18,30 +17,33 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      categoryId: {
+      customAttributeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Categories',
+          model: 'CustomAttributes',
           key: 'id'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
+      value: {
+        type: Sequelize.JSON,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       }
     })
   },
-
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('EventCategories')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('EventAttributeValues')
   }
 }

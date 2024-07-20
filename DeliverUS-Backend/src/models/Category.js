@@ -26,7 +26,8 @@ const loadModel = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Category',
-    tableName: 'Categories'
+    tableName: 'Categories',
+    timestamps: true
   })
 
   return Category

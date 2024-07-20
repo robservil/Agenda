@@ -12,6 +12,7 @@ const loadModel = (sequelize, DataTypes) => {
       Event.belongsToMany(models.User, { through: models.UserEvent, foreignKey: 'eventId' })
       Event.belongsTo(models.User, { as: 'creator', foreignKey: 'createdBy' })
       Event.belongsToMany(models.Category, { through: models.EventCategory, foreignKey: 'eventId' })
+      Event.belongsToMany(models.CustomAttribute, { through: models.EventAttributeValue, foreignKey: 'eventId' })
     }
   }
   Event.init({

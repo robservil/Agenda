@@ -16,7 +16,8 @@ module.exports = {
           model: 'Users', // Nombre de la tabla referenciada
           key: 'id'
         },
-        onDelete: 'CASCADE' // Elimina las interacciones si el usuario se elimina
+        onDelete: 'CASCADE', // Elimina las interacciones si el usuario se elimina
+        onUpdate: 'CASCADE'
       },
       event_id: {
         type: Sequelize.INTEGER,
@@ -25,7 +26,8 @@ module.exports = {
           model: 'Events', // Nombre de la tabla referenciada
           key: 'id'
         },
-        onDelete: 'CASCADE' // Elimina las interacciones si el evento se elimina
+        onDelete: 'CASCADE', // Elimina las interacciones si el evento se elimina
+        onUpdate: 'CASCADE'
       },
       status: {
         type: Sequelize.ENUM,

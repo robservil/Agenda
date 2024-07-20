@@ -21,7 +21,9 @@ const loadModel = (sequelize, DataTypes) => {
       references: {
         model: 'Users',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     eventId: {
       type: DataTypes.INTEGER,
@@ -29,7 +31,9 @@ const loadModel = (sequelize, DataTypes) => {
       references: {
         model: 'Events',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     status: {
       type: DataTypes.ENUM,

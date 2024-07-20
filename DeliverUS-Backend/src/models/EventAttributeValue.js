@@ -1,14 +1,15 @@
 import { Model } from 'sequelize'
 
 const loadModel = (sequelize, DataTypes) => {
-  class EventCategory extends Model {
+  class EventAttributeValue extends Model {
     static associate (models) {
-      EventCategory.belongsTo(models.Event, { foreignKey: 'eventId' })
-      EventCategory.belongsTo(models.Category, { foreignKey: 'categoryId' })
+      EventAttributeValue.belongsTo(models.Event, { foreignKey: 'eventId' })
+      EventAttributeValue.belongsTo(models.CustomAttribute, { foreignKey: 'customAttributeId' })
     }
   }
 
-  EventCategory.init({
+  EventAttributeValue.init({
+    // id is not included in the model's attributes but is present in the database
     eventId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -19,15 +20,19 @@ const loadModel = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
-    categoryId: {
+    customAttributeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Categories',
+        model: 'CustomAttributes',
         key: 'id'
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
+    },
+    value: {
+      type: DataTypes.JSON,
+      allowNull: false
     },
     createdAt: {
       allowNull: false,
@@ -41,12 +46,12 @@ const loadModel = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'EventCategory',
-    tableName: 'EventCategories',
+    modelName: 'EventAttributeValue',
+    tableName: 'EventAttributeValues',
     timestamps: true
   })
 
-  return EventCategory
+  return EventAttributeValue
 }
 
 export default loadModel
