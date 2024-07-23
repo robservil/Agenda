@@ -1,20 +1,14 @@
 import { Model } from 'sequelize'
 
 const loadModel = (sequelize, DataTypes) => {
-  class UserEvent extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class EventPermission extends Model {
     static associate (models) {
-      // define association here
-      UserEvent.belongsTo(models.User, { foreignKey: 'userId' })
-      UserEvent.belongsTo(models.Event, { foreignKey: 'eventId' })
+      EventPermission.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' })
+      EventPermission.belongsTo(models.Event, { foreignKey: 'eventId', onDelete: 'CASCADE' })
     }
   }
 
-  UserEvent.init({
+  EventPermission.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -35,6 +29,16 @@ const loadModel = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
+    canEditEvent: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    canCreateGlobalReminders: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -47,12 +51,12 @@ const loadModel = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'UserEvent',
-    tableName: 'UserEvents',
+    modelName: 'EventPermission',
+    tableName: 'EventPermissions',
     timestamps: true
   })
 
-  return UserEvent
+  return EventPermission
 }
 
 export default loadModel

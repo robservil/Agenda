@@ -2,32 +2,40 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('UserEvents', {
+    await queryInterface.createTable('EventInvitations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users', // Nombre de la tabla referenciada
-          key: 'id'
-        },
-        onDelete: 'CASCADE', // Elimina las interacciones si el usuario se elimina
-        onUpdate: 'CASCADE'
-      },
       eventId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
+        type: Sequelize.INTEGER,
         references: {
-          model: 'Events', // Nombre de la tabla referenciada
+          model: 'Events',
           key: 'id'
         },
-        onDelete: 'CASCADE', // Elimina las interacciones si el evento se elimina
-        onUpdate: 'CASCADE'
+        onDelete: 'CASCADE'
+      },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
+      canShare: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      accepted: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +50,6 @@ module.exports = {
     })
   },
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserEvents')
+    await queryInterface.dropTable('EventInvitations')
   }
 }

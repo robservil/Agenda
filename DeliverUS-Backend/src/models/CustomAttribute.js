@@ -3,7 +3,6 @@ import { Model } from 'sequelize'
 const loadModel = (sequelize, DataTypes) => {
   class CustomAttribute extends Model {
     static associate (models) {
-      CustomAttribute.hasMany(models.EnumValue, { foreignKey: 'customAttributeId' })
       CustomAttribute.belongsToMany(models.Event, { through: models.EventAttributeValue, foreignKey: 'customAttributeId' })
     }
   }
@@ -14,7 +13,7 @@ const loadModel = (sequelize, DataTypes) => {
       allowNull: false
     },
     type: {
-      type: DataTypes.ENUM('integer', 'string', 'date', 'array', 'enum'),
+      type: DataTypes.ENUM('integer', 'string', 'date', 'array', 'enum', 'file'),
       allowNull: false
     },
     createdAt: {
@@ -30,7 +29,14 @@ const loadModel = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'CustomAttribute',
-    tableName: 'CustomAttributes'
+    tableName: 'CustomAttributes',
+    timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['name', 'type']
+      }
+    ]
   })
 
   return CustomAttribute

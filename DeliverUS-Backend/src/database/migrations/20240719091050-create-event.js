@@ -47,6 +47,15 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE' // Elimina los eventos cuando el usuario es eliminado
+      },
+      colorId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Colors',
+          key: 'id'
+        },
+        onDelete: 'SET NULL'
       }
     })
   },

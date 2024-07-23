@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('UserEvents', {
+    await queryInterface.createTable('UserReminders', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,20 +13,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users', // Nombre de la tabla referenciada
+          model: 'Users',
           key: 'id'
         },
-        onDelete: 'CASCADE', // Elimina las interacciones si el usuario se elimina
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      eventId: {
+      reminderId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Events', // Nombre de la tabla referenciada
+          model: 'Reminders',
           key: 'id'
         },
-        onDelete: 'CASCADE', // Elimina las interacciones si el evento se elimina
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
       createdAt: {
@@ -40,8 +40,14 @@ module.exports = {
         defaultValue: Sequelize.NOW
       }
     })
+
+    await queryInterface.addConstraint('UserReminders', {
+      fields: ['userId', 'reminderId'],
+      type: 'unique',
+      name: 'unique_user_reminder'
+    })
   },
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserEvents')
+    await queryInterface.dropTable('UserReminders')
   }
 }

@@ -9,10 +9,14 @@ const loadModel = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      Event.belongsToMany(models.User, { through: models.UserEvent, foreignKey: 'eventId' })
       Event.belongsTo(models.User, { as: 'creator', foreignKey: 'createdBy' })
+      Event.belongsTo(models.Color, { as: 'color', foreignKey: 'colorId', onDelete: 'SET NULL' })
+      Event.belongsToMany(models.User, { through: models.UserEvent, foreignKey: 'eventId' })
       Event.belongsToMany(models.Category, { through: models.EventCategory, foreignKey: 'eventId' })
       Event.belongsToMany(models.CustomAttribute, { through: models.EventAttributeValue, foreignKey: 'eventId' })
+      Event.belongsToMany(models.User, { through: models.EventInvitation, foreignKey: 'eventId' })
+      Event.belongsToMany(models.User, { through: models.EventPermission, foreignKey: 'eventId' })
+      Event.hasMany(models.Reminder, { foreignKey: 'eventId' })
     }
   }
   Event.init({
@@ -28,7 +32,7 @@ const loadModel = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE
     },
-    ednDate: {
+    endDate: {
       allowNull: false,
       type: DataTypes.DATE
     },
@@ -53,11 +57,20 @@ const loadModel = (sequelize, DataTypes) => {
         model: 'Users', // Name of the table, not the model
         key: 'id'
       }
+    },
+    colorId: {
+      allowNull: true,
+      type: DataTypes.STRING,
+      references: {
+        model: 'Colors',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
     modelName: 'Event',
-    tableName: 'Events'
+    tableName: 'Events',
+    timestamps: true
   })
   return Event
 }

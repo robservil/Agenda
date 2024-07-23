@@ -14,6 +14,9 @@ const loadModel = (sequelize, DataTypes) => {
       User.hasMany(models.Order, { foreignKey: 'userId' }) // Borrar
       User.hasMany(models.Event, { as: 'createdEvents', foreignKey: 'createdBy' })
       User.belongsToMany(models.Event, { through: models.UserEvent, foreignKey: 'userId' })
+      User.belongsToMany(models.Event, { through: models.EventInvitation, foreignKey: 'userId' })
+      User.belongsToMany(models.Event, { through: models.EventPermission, foreignKey: 'userId' })
+      User.belongsToMany(models.Reminder, { through: models.UserReminder, foreignKey: 'userId' })
     }
   }
   User.init({

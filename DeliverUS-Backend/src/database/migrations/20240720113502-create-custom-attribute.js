@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false
       },
       type: {
-        type: Sequelize.ENUM('integer', 'string', 'date', 'array', 'enum'),
+        type: Sequelize.ENUM('integer', 'string', 'date', 'array', 'enum', 'file'),
         allowNull: false
       },
       createdAt: {
@@ -27,8 +27,18 @@ module.exports = {
         defaultValue: Sequelize.fn('now')
       }
     })
+
+    // Añadir la restricción de unicidad compuesta
+    await queryInterface.addConstraint('CustomAttributes', {
+      fields: ['name', 'type'],
+      type: 'unique',
+      name: 'unique_name_type_constraint'
+    })
   },
   down: async (queryInterface, Sequelize) => {
+    // Eliminar la restricción de unicidad compuesta
+    await queryInterface.removeConstraint('CustomAttributes', 'unique_name_type_constraint')
+
     await queryInterface.dropTable('CustomAttributes')
   }
 }

@@ -1,33 +1,42 @@
 'use strict'
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('UserEvents', {
+    await queryInterface.createTable('EventPermissions', {
       id: {
-        allowNull: false,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        allowNull: false
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users', // Nombre de la tabla referenciada
+          model: 'Users',
           key: 'id'
         },
-        onDelete: 'CASCADE', // Elimina las interacciones si el usuario se elimina
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
       eventId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Events', // Nombre de la tabla referenciada
+          model: 'Events',
           key: 'id'
         },
-        onDelete: 'CASCADE', // Elimina las interacciones si el evento se elimina
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
+      },
+      canEditEvent: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      canCreateGlobalReminders: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +51,6 @@ module.exports = {
     })
   },
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserEvents')
+    await queryInterface.dropTable('EventPermissions')
   }
 }

@@ -1,23 +1,19 @@
 import { Model } from 'sequelize'
 
 const loadModel = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class Color extends Model {
     static associate (models) {
       // define association here
-      Category.belongsToMany(models.Event, { through: models.EventCategory, foreignKey: 'categoryId' })
-      Category.belongsTo(models.Color, { as: 'color', foreignKey: 'colorId', onDelete: 'SET NULL' })
+      Color.hasMany(models.Event, { foreignKey: 'colorId', onDelete: 'SET NULL' })
+      Color.hasMany(models.Category, { foreignKey: 'colorId', onDelete: 'SET NULL' })
     }
   }
 
-  Category.init({
-    name: {
+  Color.init({
+    color: {
       allowNull: false,
       type: DataTypes.STRING,
       unique: true
-    },
-    colorId: {
-      allowNull: true,
-      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
@@ -31,12 +27,12 @@ const loadModel = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Category',
-    tableName: 'Categories',
+    modelName: 'Color',
+    tableName: 'Colors',
     timestamps: true
   })
 
-  return Category
+  return Color
 }
 
 export default loadModel

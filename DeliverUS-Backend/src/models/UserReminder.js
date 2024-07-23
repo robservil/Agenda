@@ -1,20 +1,16 @@
 import { Model } from 'sequelize'
 
 const loadModel = (sequelize, DataTypes) => {
-  class UserEvent extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class UserReminder extends Model {
     static associate (models) {
-      // define association here
-      UserEvent.belongsTo(models.User, { foreignKey: 'userId' })
-      UserEvent.belongsTo(models.Event, { foreignKey: 'eventId' })
+      // Un UserReminder pertenece a un usuario
+      UserReminder.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' })
+      // Un UserReminder pertenece a un recordatorio
+      UserReminder.belongsTo(models.Reminder, { foreignKey: 'reminderId', onDelete: 'CASCADE' })
     }
   }
 
-  UserEvent.init({
+  UserReminder.init({
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -25,11 +21,11 @@ const loadModel = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
-    eventId: {
+    reminderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Events',
+        model: 'Reminders',
         key: 'id'
       },
       onDelete: 'CASCADE',
@@ -47,12 +43,18 @@ const loadModel = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'UserEvent',
-    tableName: 'UserEvents',
-    timestamps: true
+    modelName: 'UserReminder',
+    tableName: 'UserReminders',
+    timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['userId', 'reminderId']
+      }
+    ]
   })
 
-  return UserEvent
+  return UserReminder
 }
 
 export default loadModel
