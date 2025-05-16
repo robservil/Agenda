@@ -10,8 +10,6 @@ const loadModel = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      User.hasMany(models.Restaurant, { foreignKey: 'userId' })
-      User.hasMany(models.Order, { foreignKey: 'userId' })
     }
   }
   User.init({
@@ -60,14 +58,6 @@ const loadModel = (sequelize, DataTypes) => {
     postalCode: {
       allowNull: false,
       type: DataTypes.STRING
-    },
-    userType: {
-      allowNull: false,
-      type: DataTypes.ENUM,
-      values: [
-        'customer',
-        'owner'
-      ]
     },
     createdAt: {
       allowNull: false,

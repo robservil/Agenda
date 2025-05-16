@@ -18,8 +18,8 @@
     "model:create": "sequelize model:generate --attributes name:string --name",
     "migrate:generate": "npx sequelize-cli migration:create --name",
     "seed:generate": "npx sequelize-cli seed:create --name",
-    "migrate": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "test": "cross-env NODE_ENV=production NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --verbose"
+    "migrate": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

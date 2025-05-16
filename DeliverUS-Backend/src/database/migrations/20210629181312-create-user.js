@@ -47,15 +47,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      userType: {
-        allowNull: false,
-        type: Sequelize.ENUM,
-        values: [
-          'customer',
-          'owner'
-        ],
-        defaultValue: 'customer'
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
