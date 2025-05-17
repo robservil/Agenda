@@ -12,10 +12,19 @@ import InputItem from '../../components/InputItem'
 import TextRegular from '../../components/TextRegular'
 import TextError from '../../components/TextError'
 
-export default function RegisterScreen () {
+export default function RegisterScreen ({ navigation }) {
   const { signUp } = useContext(AuthorizationContext)
   const [backendErrors, setBackendErrors] = useState()
-  const initialUserValues = { firstName: null, lastName: null, email: null, password: null, phone: null, address: null, postalCode: null, avatar: null }
+  const initialUserValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+    postalCode: '',
+    avatar: null // ← este puede seguir en null si es un objeto
+  }
 
   const validationSchema = yup.object().shape({
     firstName: yup
@@ -76,16 +85,21 @@ export default function RegisterScreen () {
 
   const register = (data) => {
     setBackendErrors([])
-    signUp(data, () => showMessage({
-      message: `Success. ${data.firstName}, welcome to DeliverUS! 😀`,
-      type: 'success',
-      style: GlobalStyles.flashStyle,
-      titleStyle: GlobalStyles.flashTextStyle
-    }),
-    (error) => {
-      setBackendErrors(error.errors)
-    })
+    signUp(data,
+      (registeredUser) => {
+        showMessage({
+          message: `Success. ${registeredUser.firstName}, welcome to DeliverUS! 😀`,
+          type: 'success',
+          style: GlobalStyles.flashStyle,
+          titleStyle: GlobalStyles.flashTextStyle
+        })
+        navigation.replace('ProfileScreen') // ← navegación limpia tras registro
+      },
+      (error) => {
+        setBackendErrors(error.errors)
+      })
   }
+
   return (
         <Formik
           validationSchema={validationSchema}

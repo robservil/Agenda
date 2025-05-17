@@ -29,19 +29,13 @@ export default function LoginScreen ({ navigation }) {
     setBackendErrors([])
     signIn(values,
       (loggedInUser) => {
-        loggedInUser.userType === 'customer'
-          ? showMessage({
-            message: `Welcome back ${loggedInUser.firstName}.`,
-            type: 'success',
-            style: GlobalStyles.flashStyle,
-            titleStyle: GlobalStyles.flashTextStyle
-          })
-          : showMessage({
-            message: `Welcome back ${loggedInUser.firstName}. You are not a customer.`,
-            type: 'warning',
-            style: GlobalStyles.flashStyle,
-            titleStyle: GlobalStyles.flashTextStyle
-          })
+        showMessage({
+          message: `Welcome back ${loggedInUser.firstName}.`,
+          type: 'success',
+          style: GlobalStyles.flashStyle,
+          titleStyle: GlobalStyles.flashTextStyle
+        })
+        navigation.replace('ProfileScreen') // ← redirección limpia
       },
       (error) => {
         setBackendErrors(error.errors)
