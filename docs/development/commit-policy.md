@@ -33,3 +33,4 @@ feat!/fix! → indica un **BREAKING CHANGE** (cambio incompatible)
 - La descripción debe ser clara
 - Usar **inglés**
 - Máximo **72 caracteres** en el título
+
