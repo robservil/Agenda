@@ -4,30 +4,30 @@ El proyecto sigue un modelo basado en **GitFlow simplificado**.
 
 ## Ramas principales
 
-main  
+**`main`**
 Contiene el código listo para producción.
 
-develop  
+**`develop`**
 Contiene la integración de las nuevas funcionalidades. Se usará de base para la creación de otras ramas.
 
 ## Ramas auxiliares
 
-feature/*
+**`feature/*`**
 Se utilizan para desarrollar nuevas funcionalidades.
 
-task/*
+**`task/*`**
 Para ramas utilizadas para otro tipo de tareas de código que no proporcionan nuevas funcionalidades, como refactorizar.
 
-release/*
+**`release/*`**
 Estabilización de una versión antes de ir a producción.
 
-hotfix/*
+**`hotfix/*`**
 Correcciones urgentes extraídas directamente de main o alguna rama de release.
 
-bugfix/*
+**`bugfix/*`**
 Se utilizan para corregir errores.
 
-docs/*
+**`docs/*`**
 Elaboración o modificación de la documentación.
 
 
@@ -36,3 +36,4 @@ Elaboración o modificación de la documentación.
 feature/user-authentication  
 bugfix/plan-update-error  
 hotfix/payment-crash
+
